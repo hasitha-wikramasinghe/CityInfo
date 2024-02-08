@@ -8,6 +8,13 @@ namespace CityInfo.API.Controllers
     [ApiController]
     public class PointsOfInterestController : ControllerBase
     {
+        private readonly ILogger<PointsOfInterestController> _logger;
+
+        public PointsOfInterestController(ILogger<PointsOfInterestController> logger)
+        {
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        }
+
         [HttpGet]
         public ActionResult<IEnumerable<PointOfInterestDto>> GetPointsOfInterest(
             int cityId)
@@ -27,19 +34,30 @@ namespace CityInfo.API.Controllers
             int cityId,
             int pointOfInterestId)
         {
-            var city = CitiesDataStore.Current.Cities.FirstOrDefault(c => c.Id == cityId);
-            if (city == null)
+            try
             {
-                return NotFound();
-            }
+                throw new Exception("exception sample..");
+                var city = CitiesDataStore.Current.Cities.FirstOrDefault(c => c.Id == cityId);
+                if (city == null)
+                {
+                    _logger.LogInformation($"city with the id {cityId} coludn't find when trying to access it's point of interest.");
+                    return NotFound();
+                }
 
-            var pointOfInterest = city.PointsOfInterest.FirstOrDefault(x => x.Id == pointOfInterestId);
-            if (pointOfInterest == null)
+                var pointOfInterest = city.PointsOfInterest.FirstOrDefault(x => x.Id == pointOfInterestId);
+                if (pointOfInterest == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(pointOfInterest);
+            }
+            catch (Exception ex)
             {
-                return NotFound();
+                _logger.LogCritical(
+                    $"Exception while getting point of interest for city with id {cityId}");
+                return StatusCode(500, "A problem happened while handling your request.");
             }
-
-            return Ok(pointOfInterest);
         }
 
         [HttpPost]
