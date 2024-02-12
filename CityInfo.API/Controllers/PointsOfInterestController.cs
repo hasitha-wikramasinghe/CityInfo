@@ -10,21 +10,24 @@ namespace CityInfo.API.Controllers
     public class PointsOfInterestController : ControllerBase
     {
         private readonly ILogger<PointsOfInterestController> _logger;
-        private readonly LocalMailServer _mailServer;
+        private readonly IMailServer _mailServer;
+        private readonly CitiesDataStore _dataStore;
 
         public PointsOfInterestController(
             ILogger<PointsOfInterestController> logger,
-            LocalMailServer mailServer)
+            IMailServer mailServer,
+            CitiesDataStore dataStore)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _mailServer = mailServer ?? throw new ArgumentNullException(nameof(mailServer));
+            _dataStore = dataStore ?? throw new ArgumentNullException(nameof(dataStore));
         }
 
         [HttpGet]
         public ActionResult<IEnumerable<PointOfInterestDto>> GetPointsOfInterest(
             int cityId)
         {
-            var city = CitiesDataStore.Current.Cities.FirstOrDefault(c => c.Id == cityId);
+            var city = _dataStore.Cities.FirstOrDefault(c => c.Id == cityId);
 
             if (city == null)
             {
@@ -42,7 +45,7 @@ namespace CityInfo.API.Controllers
             try
             {
                 //throw new Exception("exception sample..");
-                var city = CitiesDataStore.Current.Cities.FirstOrDefault(c => c.Id == cityId);
+                var city = _dataStore.Cities.FirstOrDefault(c => c.Id == cityId);
                 if (city == null)
                 {
                     _logger.LogInformation($"city with the id {cityId} coludn't find when trying to access it's point of interest.");
@@ -70,13 +73,13 @@ namespace CityInfo.API.Controllers
             int cityId,
             PointOfInterestCreationDto pointOfInterest)
         {
-            var city = CitiesDataStore.Current.Cities.FirstOrDefault(x => x.Id == cityId);
+            var city = _dataStore.Cities.FirstOrDefault(x => x.Id == cityId);
             if (city == null)
             {
                 return NotFound();
             }
 
-            var maxPointOfInterestId = CitiesDataStore.Current.Cities.SelectMany(c => c.PointsOfInterest).Max(x => x.Id);
+            var maxPointOfInterestId = _dataStore.Cities.SelectMany(c => c.PointsOfInterest).Max(x => x.Id);
 
             var finalPointOfInterestDto = new PointOfInterestDto()
             {
@@ -102,7 +105,7 @@ namespace CityInfo.API.Controllers
             int pointOfInterestId,
             PointOfInterestUpdateDto pointOfInterest)
         {
-            var city = CitiesDataStore.Current.Cities.FirstOrDefault(c => c.Id == cityId);
+            var city = _dataStore.Cities.FirstOrDefault(c => c.Id == cityId);
             if (city == null)
             {
                 return NotFound();
@@ -126,7 +129,7 @@ namespace CityInfo.API.Controllers
             int pointOfInterestId,
             JsonPatchDocument<PointOfInterestUpdateDto> patchDoucment)
         {
-            var city = CitiesDataStore.Current.Cities.FirstOrDefault(c => c.Id == cityId);
+            var city = _dataStore.Cities.FirstOrDefault(c => c.Id == cityId);
             if (city is null)
             {
                 return NotFound();
@@ -168,7 +171,7 @@ namespace CityInfo.API.Controllers
             int cityId,
             int pointOfInterestId)
         {
-            var city = CitiesDataStore.Current.Cities.FirstOrDefault(c => c.Id == cityId);
+            var city = _dataStore.Cities.FirstOrDefault(c => c.Id == cityId);
             if (city is null)
             {
                 return BadRequest();
