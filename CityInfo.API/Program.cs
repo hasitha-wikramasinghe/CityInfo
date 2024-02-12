@@ -1,3 +1,4 @@
+using CityInfo.API.Services;
 using Microsoft.AspNetCore.StaticFiles;
 using Serilog;
 
@@ -8,6 +9,8 @@ Log.Logger = new LoggerConfiguration()
     .CreateLogger();
 
 var builder = WebApplication.CreateBuilder(args);
+//builder.Logging.ClearProviders();
+//builder.Logging.AddConsole();
 
 builder.Host.UseSerilog();
 
@@ -22,6 +25,7 @@ builder.Services.AddControllers(x =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<FileExtensionContentTypeProvider>();
+builder.Services.AddTransient<LocalMailServer>();
 
 var app = builder.Build();
 
