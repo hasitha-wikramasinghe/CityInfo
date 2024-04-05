@@ -14,8 +14,8 @@ namespace CityInfo.API
                 new CityDto()
                 {
                     Id = 1,
-                    name = "Ja Ela",
-                    description = "Some description abt ja ela",
+                    Name = "Ja Ela",
+                    Description = "Some description abt ja ela",
                     PointsOfInterest = new List<PointOfInterestDto>()
                     {
                         new PointOfInterestDto()
@@ -36,8 +36,8 @@ namespace CityInfo.API
                 new CityDto()
                 {
                     Id = 2,
-                    name = "Kandana",
-                    description = "Some description abt Kandana",
+                    Name = "Kandana",
+                    Description = "Some description abt Kandana",
                     PointsOfInterest = new List<PointOfInterestDto>()
                     {
                         new PointOfInterestDto()
@@ -52,7 +52,7 @@ namespace CityInfo.API
                 new CityDto()
                 {
                     Id = 3,
-                    name = "Waththala",
+                    Name = "Waththala",
                     PointsOfInterest = new List<PointOfInterestDto>()
                     {
                         new PointOfInterestDto()

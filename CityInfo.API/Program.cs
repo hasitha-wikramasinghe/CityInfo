@@ -12,8 +12,6 @@ Log.Logger = new LoggerConfiguration()
     .CreateLogger();
 
 var builder = WebApplication.CreateBuilder(args);
-//builder.Logging.ClearProviders();
-//builder.Logging.AddConsole();
 
 builder.Host.UseSerilog();
 
@@ -39,6 +37,10 @@ builder.Services.AddSingleton<CitiesDataStore>();
 
 builder.Services.AddDbContext<CityInfoContext>(options =>
     options.UseSqlite(builder.Configuration["ConnectionStrings:CityInfoDbConnection"]));
+
+builder.Services.AddScoped<ICityInfoRepository, CityInfoRepository>();
+
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 var app = builder.Build();
 

@@ -3,8 +3,8 @@
     public class CityDto
     {
         public int Id { get; set; }
-        public string name { get; set; } = String.Empty;
-        public string? description { get; set; }
+        public string Name { get; set; } = String.Empty;
+        public string? Description { get; set; }
 
         public int NumberOfPointsOfInterest
         {
