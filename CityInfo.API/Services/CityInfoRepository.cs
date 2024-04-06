@@ -67,7 +67,7 @@ namespace CityInfo.API.Services
 
         public async Task<IEnumerable<PointOfInterest>> GetPointsOfInterestForCityAsync(int cityId)
         {
-            return await _context.PointOfInterests.Where(p => p.Id == cityId).ToListAsync();
+            return await _context.PointOfInterests.Where(p => p.CityId == cityId).ToListAsync();
         }
 
         public async Task<bool> IsCityExists(int cityId)
@@ -92,6 +92,11 @@ namespace CityInfo.API.Services
         public void DeletePointOfInterest(PointOfInterest pointOfInterest)
         {
             _context.PointOfInterests.Remove(pointOfInterest);
+        }
+
+        public async Task<bool> IsCityIdMatchingCityName(string? cityName, int cityId)
+        {
+            return await _context.Cities.AnyAsync(c => c.Id == cityId && c.Name == cityName);
         }
     }
 }
