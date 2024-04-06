@@ -30,7 +30,22 @@ namespace CityInfo.API.DbContexts
                 {
                     Id = 3,
                     Description = "A very cold weather we can have there"
-                });
+                },
+                new City("New York City")
+                {
+                    Id = 4,
+                    Description = "The one with that big park."
+                },
+               new City("Antwerp")
+               {
+                   Id = 5,
+                   Description = "The one with the cathedral that was never really finished."
+               },
+               new City("Paris")
+               {
+                   Id = 6,
+                   Description = "The one with that big tower."
+               });
 
             modelBuilder.Entity<PointOfInterest>()
                 .HasData(
@@ -51,7 +66,42 @@ namespace CityInfo.API.DbContexts
                     Id = 3,
                     CityId = 3,
                     Description = "A very cold weather having Botanical garden"
-                });
+                }, new PointOfInterest("Central Park")
+                {
+                    Id = 9,
+                    CityId = 4,
+                    Description = "The most visited urban park in the United States."
+                },
+               new PointOfInterest("Empire State Building")
+               {
+                   Id = 10,
+                   CityId = 4,
+                   Description = "A 102-story skyscraper located in Midtown Manhattan."
+               },
+                 new PointOfInterest("Cathedral")
+                 {
+                     Id = 11,
+                     CityId = 5,
+                     Description = "A Gothic style cathedral, conceived by architects Jan and Pieter Appelmans."
+                 },
+               new PointOfInterest("Antwerp Central Station")
+               {
+                   Id = 12,
+                   CityId = 5,
+                   Description = "The the finest example of railway architecture in Belgium."
+               },
+               new PointOfInterest("Eiffel Tower")
+               {
+                   Id = 13,
+                   CityId = 6,
+                   Description = "A wrought iron lattice tower on the Champ de Mars, named after engineer Gustave Eiffel."
+               },
+               new PointOfInterest("The Louvre")
+               {
+                   Id = 14,
+                   CityId = 6,
+                   Description = "The world's largest museum."
+               });
 
             base.OnModelCreating(modelBuilder);
         }
