@@ -58,6 +58,16 @@ builder.Services.AddAuthentication("Bearer")
         };
     });
 
+// Creating a policy
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("MustBeFromColombo", policy =>
+    {
+        policy.RequireAuthenticatedUser();
+        policy.RequireClaim("city", "Colombo");
+    });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
