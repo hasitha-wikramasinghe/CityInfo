@@ -1,12 +1,13 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Asp.Versioning;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.StaticFiles;
 
 namespace CityInfo.API.Controllers
 {
-    [Route("api/files")]
-    [ApiController]
+    [Route("api/v{version:ApiVersion}/files")]
     [Authorize]
+    [ApiController]
     public class FilesController : ControllerBase
     {
         private readonly FileExtensionContentTypeProvider _extensionContentTypeProvider;
@@ -17,6 +18,7 @@ namespace CityInfo.API.Controllers
         }
 
         [HttpGet("{fileId}")]
+        [ApiVersion(0.1, Deprecated = true)]
         public ActionResult GetFile(int fileId)
         {
             var pathToFile = "1 Academic certificates.pdf";
