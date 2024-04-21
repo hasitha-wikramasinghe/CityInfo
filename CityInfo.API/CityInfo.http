@@ -33,4 +33,4 @@ Content-Type: application/json
 ###
 // authenticated request
 GET {{schema}}://{{hostname}}:{{port}}/api/v2/cities
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZ2l2ZW5fbmFtZSI6Ikhhc2l0aGEiLCJmYW1pbHlfbmFtZSI6Ildpa3JhbWFzaW5naGUiLCJjaXR5IjoiQ29sb21ibyIsIm5iZiI6MTcxMzY1NzU3MCwiZXhwIjoxNzEzNjYxMTcwLCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo3MTM5IiwiYXVkIjoiY2l0eWluZm9hcGkifQ.ejM58aGA5sgFD-GfjQKelHgiZ5JAoHVOgdGNF7Yauhg
+Authorization: Bearer AuthTokenShouldReplaceHere
