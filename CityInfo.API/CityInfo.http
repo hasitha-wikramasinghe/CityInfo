@@ -1,0 +1,36 @@
+# For more info on HTTP files go to https://aka.ms/vs/httpfile
+@schema=https
+@hostname=localhost
+@port=7139
+
+GET {{schema}}://{{hostname}}:{{port}}/api/v2/cities
+
+###
+GET {{schema}}://{{hostname}}:{{port}}/api/v2/cities
+Accept:application/xml
+
+###
+# @name createpoi
+POST {{schema}}://{{hostname}}:{{port}}/api/v2/cities/1/pointsofinterest
+Accept:application/json
+Content-Type: application/json
+
+{
+  "name": "A name for testing with http files",
+  "description": "A description for testing with http files"
+}
+
+###
+// get token
+POST {{schema}}://{{hostname}}:{{port}}/api/authentication/authenticate
+Content-Type: application/json
+
+{
+  "username": "hasitha",
+  "password": "This is the password"
+}
+
+###
+// authenticated request
+GET {{schema}}://{{hostname}}:{{port}}/api/v2/cities
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZ2l2ZW5fbmFtZSI6Ikhhc2l0aGEiLCJmYW1pbHlfbmFtZSI6Ildpa3JhbWFzaW5naGUiLCJjaXR5IjoiQ29sb21ibyIsIm5iZiI6MTcxMzY1NzU3MCwiZXhwIjoxNzEzNjYxMTcwLCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo3MTM5IiwiYXVkIjoiY2l0eWluZm9hcGkifQ.ejM58aGA5sgFD-GfjQKelHgiZ5JAoHVOgdGNF7Yauhg
